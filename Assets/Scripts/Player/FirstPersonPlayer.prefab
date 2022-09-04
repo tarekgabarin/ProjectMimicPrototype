@@ -97,15 +97,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b985483af9ada41b88791ad9f35b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 8902851537068597767}
-  speed: 12
+  playerCamera: {fileID: 0}
+  mouseSensitivty: 3.5
+  lockCursor: 1
+  walkSpeed: 6
+  moveSmoothTime: 0.3
+  mouseSmoothTime: 0.03
   gravity: -19.62
-  jumpHeight: 9
-  groundCheck: {fileID: 8902851536156392821}
-  groundDistance: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
+  velocityY: 0
 --- !u!1 &8902851537589560948
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +116,6 @@ GameObject:
   - component: {fileID: 8902851537589560955}
   - component: {fileID: 8902851537589560953}
   - component: {fileID: 8902851537589560954}
-  - component: {fileID: 8902851537589560952}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Player
@@ -191,20 +189,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8902851537589560948}
   m_Enabled: 1
---- !u!114 &8902851537589560952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8902851537589560948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 863a6e5d344d94a42ad9321fd2824c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MouseSensitivity: 100
-  PlayerBody: {fileID: 8902851537068597766}
 --- !u!1 &8902851538182659195
 GameObject:
   m_ObjectHideFlags: 0
