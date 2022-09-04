@@ -9,7 +9,9 @@ public class Interactor : MonoBehaviour
     public new Camera camera = null;
     public Image interactImage;
     public Sprite defaultIcon;
+    public Vector2 defaultIconSize;
     public Sprite defaultInteractIcon;
+    public Vector2 defaultInteractIconSize;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,9 +36,19 @@ public class Interactor : MonoBehaviour
                 if (interactable.interactIcon != null)
                 {
                     interactImage.sprite = interactable.interactIcon;
+
+                    if (interactable.iconSize == Vector2.zero)
+                    {
+                        interactImage.rectTransform.sizeDelta = defaultInteractIconSize;
+                    } else
+                    {
+                        interactImage.rectTransform.sizeDelta = interactable.iconSize;
+                    }
+
                 } else
                 {
                     interactImage.sprite = defaultInteractIcon;
+                    interactImage.rectTransform.sizeDelta = defaultInteractIconSize;
                 }
 
                 if (Input.GetKeyDown(KeyCode.E))
@@ -49,6 +61,7 @@ public class Interactor : MonoBehaviour
             if (interactImage.sprite != defaultIcon)
             {
                 interactImage.sprite = defaultIcon;
+                interactImage.rectTransform.sizeDelta = defaultIconSize;
             }
         }
     }
