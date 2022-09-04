@@ -5,46 +5,76 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public CharacterController characterController;
+    [SerializeField] Transform playerCamera = null;
+    [SerializeField] float mouseSensitivty = 3.5f;
+    
+    [SerializeField] bool lockCursor = true;
+    [SerializeField] float walkSpeed = 6.0f;
 
-    public float speed = 12f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
+    [SerializeField][Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
+    float cameraPitch = 0.0f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
+    CharacterController controller = null;
+    [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
 
-    public LayerMask groundMask;
+    Vector2 currentDir = Vector2.zero;
+    Vector2 currentDirVelocity = Vector2.zero;
 
-    private bool isGrounded;
+    Vector2 currentMouseDelta = Vector2.zero;
+    Vector2 currentMouseDeltaVelocity = Vector2.zero;
 
-    Vector3 velocity;
+    [SerializeField] float gravity = -13.0f;
+    [SerializeField] float velocityY = 0.0f;
+
+    private void Start()
+    {
+        controller = GetComponent<CharacterController>();
+
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
 
     void Update()
     {
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        UpdateMouseLook();
+        UpdateMovement();
+    }
 
-        if (isGrounded && velocity.y < 0)
+    void UpdateMouseLook()
+    {
+
+        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
+
+        cameraPitch -= currentMouseDelta.y * mouseSensitivty;
+        cameraPitch = Mathf.Clamp(cameraPitch, -90.0f, 90.0f);
+
+        playerCamera.localEulerAngles = Vector3.right * cameraPitch;
+        transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivty);
+
+    }
+
+    void UpdateMovement()
+    {
+        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        targetDir.Normalize();
+
+        currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
+
+        if (controller.isGrounded)
         {
-            velocity.y = -2f;
+            velocityY = 0.0f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        velocityY += gravity * Time.deltaTime;
 
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        characterController.Move(move * speed * Time.deltaTime);
-
-        if(Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-
-        characterController.Move(velocity * Time.deltaTime);
+        Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * walkSpeed + Vector3.up * velocityY;
+        controller.Move(velocity * Time.deltaTime);
 
     }
 }

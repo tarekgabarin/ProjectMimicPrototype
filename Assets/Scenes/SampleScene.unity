@@ -365,6 +365,11 @@ MonoBehaviour:
   defaultIconSize: {x: 25, y: 25}
   defaultInteractIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   defaultInteractIconSize: {x: 50, y: 50}
+--- !u!4 &655074621 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8902851537589560955, guid: 9d2a641a6a44f114896f133976e9c54e, type: 3}
+  m_PrefabInstance: {fileID: 8902851538177442627}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +814,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstPersonPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 8902851537068597765, guid: 9d2a641a6a44f114896f133976e9c54e, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 655074621}
     - target: {fileID: 8902851537068597766, guid: 9d2a641a6a44f114896f133976e9c54e, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -857,9 +866,5 @@ PrefabInstance:
       propertyPath: m_TagString
       value: MainCamera
       objectReference: {fileID: 0}
-    - target: {fileID: 8902851537589560952, guid: 9d2a641a6a44f114896f133976e9c54e, type: 3}
-      propertyPath: cursorTexture
-      value: 
-      objectReference: {fileID: 2800000, guid: 9b41274bd76840442af527458eee41af, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d2a641a6a44f114896f133976e9c54e, type: 3}
