@@ -9,8 +9,8 @@ public class MouseLook : MonoBehaviour
 
     public Transform PlayerBody;
 
-    public float sensX;
-    public float sensY;
+    public float sensX = 135f;
+    public float sensY = 100f;
 
     private float xRotation = 0f;
     private float yRotation = 0f;
