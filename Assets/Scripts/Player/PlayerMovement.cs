@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravity = -13.0f;
     [SerializeField] float velocityY = 0.0f;
 
+    [SerializeField] float jumpHeight = 1.0f;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -69,6 +71,12 @@ public class PlayerMovement : MonoBehaviour
         if (controller.isGrounded)
         {
             velocityY = 0.0f;
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                velocityY += Mathf.Sqrt(jumpHeight * -01.0f * gravity);
+            }
+
         }
 
         velocityY += gravity * Time.deltaTime;
